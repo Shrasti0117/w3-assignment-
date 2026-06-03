@@ -1,4 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const rawApiUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "");
+const API_URL = rawApiUrl
+  ? rawApiUrl.endsWith("/api")
+    ? rawApiUrl
+    : `${rawApiUrl}/api`
+  : "http://localhost:5000/api";
 
 export function getStoredAuth() {
   const token = localStorage.getItem("tp_token");
